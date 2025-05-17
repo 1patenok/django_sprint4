@@ -70,18 +70,15 @@ def category_posts(request, category_slug):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    # Проверяем, является ли пользователь автором поста
     is_author = request.user == post.author
-    # Показываем пост, если он опубликован ИЛИ если пользователь - автор
     if post.is_published or is_author:
         comment_form = CommentForm()
-        # Получаем комментарии к посту
-        comments = post.comments.all()  # или post.comment_set.all() если related_name не задан
+        comments = post.comments.all()
 
         context = {
             'post': post,
             'form': comment_form,
-            'comments': comments,  # <-- добавьте это!
+            'comments': comments,
         }
         return render(request, 'blog/detail.html', context)
     raise Http404()

@@ -21,6 +21,5 @@ urlpatterns = [
 
     # --- Профиль пользователя ---
     path('profile/edit/', user_views.edit_profile, name='edit_profile'),
-    path('profile/<slug:username>/', user_views.profile, name='profile'),
-    
+    path('profile/<slug:username>/', user_views.profile, name='profile'), 
 ]
