@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 def profile(request, username):
     # Получаем пользователя или возвращаем 404
     profile_user = get_object_or_404(User, username=username)
-    
+
     # Получаем посты пользователя с пагинацией
     posts = Post.objects.filter(author=profile_user).order_by('-pub_date')
     paginator = Paginator(posts, 10)  # 10 постов на странице

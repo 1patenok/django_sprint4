@@ -2,8 +2,7 @@ from datetime import datetime
 
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count, F, Value, CharField
-from django.db.models.functions import Concat, Cast
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.http import Http404
@@ -27,8 +26,7 @@ def get_posts(**kwargs):
 
 def get_paginator(request, queryset,
                   number_of_pages=NUMBER_OF_PAGINATOR_PAGES):
-    """Представление queryset в виде пагинатора,
-       по N-шт на странице"""
+    """Представление queryset в виде пагинатора"""
     paginator = Paginator(queryset, number_of_pages)
     page_number = request.GET.get('page')
     return paginator.get_page(page_number)
@@ -59,7 +57,7 @@ def category_posts(request, category_slug):
         category=category
     )
     page_obj = get_paginator(request, posts)
-    
+
     context = {
         'category': category,
         'page_obj': page_obj,
@@ -82,7 +80,6 @@ def post_detail(request, post_id):
         }
         return render(request, 'blog/detail.html', context)
     raise Http404()
-
 
 
 @login_required
